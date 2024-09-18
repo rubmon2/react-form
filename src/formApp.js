@@ -1,31 +1,26 @@
-import { useState } from "react";
+import { useForm } from "./hooks/useForm";
 
 export const App = () => {
 
-//hooks
-  const [formState, setFormState]=useState({
-    username:"ruben",
-    email:"ruben@hotmail.com",
-    password:12312312, 
-  })
-//desestructuracion para guardar los value
-  const{username,email,password}=formState
+//model,schema
+const varInicial={
+  userName:" ",
+  email:" ",
+  password:"", 
+}
 
-//onchange
-const onInputChange =({target})=>{
-const{name,value}=target
-setFormState({  
-  ...formState, 
-  [name]:value
-})}
+
+//customhooks
+const{username,email,password,formState,onInputChange}=useForm(varInicial)
+
+//desestructuracion para guardar los value
+//const{username,email,password}=formState
 
 //onsubmit
-
 const onSubmit=(event)=>{
   event.preventDefault()
   console.log(formState)
 }
-
 
   return (
     <>
@@ -37,7 +32,6 @@ const onSubmit=(event)=>{
           type="text"
           className="form-control"
           name="userName"
-          aria-describedby="emailHelp"
           placeholder="Username"
           value={username}
           onChange={onInputChange}
